@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scle=1.0">
+  <title>ソウルナンバー診断（プロトタイプ）</title>
+<style>
+  /* 1. リセット＆ベース設定*/
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px; /* スマホで画面端にくっつかないように余白を確保 */
+  }
+  /* 2. カードコンテナ（PC/スマホ共通の枠組み） */
+  .container {
+    width: 100%;
+    max-width: 420px; /* PCでは広がりすぎず、スマホでは画面幅いっぱいに */
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0f172a;
+  }
+
+  /* 3. フォーム周り（スマホでタップしやすい高さ・サイズ調整）*/
+  .form-group{
+    margin-bottom: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #475569;
+  }
+
+  input[type="date"] {
+    width: 100%;
+    height: 48px; /* スマホの親指で押しやすい高さ */
+    padding: 0 12px;
+    font-size: 16px; /* ※iOSで入力時に自動ズームするのを防ぐため16px以上にする */
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #334155;
+    outline: none;
+    -webkit-appearance: none; /* iOS特有のデフォルト装飾を解除 */
+    appearance: none;
+  }
+
+  input[type="date"]:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+
+  button {
+    width: 100%;
+    height: 48px;
+    margin-top: 12px;
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: backround-color 0.2s;
+    -webkit-tap-highlight-color: transparent;/* タップ時のグレー枠を消去 */
+  }
+
+  button:active {
+    background-color: #4338ca;
+    transform: scale(0.99);
+  }
+
+  /* 4. 結果表示エリア */
+  #result {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    animation: fadeIn 0.25s ease-in-out;
+  }
+
+  #result h2 {
+    font-size: 1.1rem;
+    color: #475569;
+    margin-bottom: 8px;
+  }
+
+  #soulNumber {
+    display: inline-block;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #4f46e5;
+    margin: 6px;
+  }
+
+  #soulDescription {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #334155;
+    text-align: left;
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /*5. 画面幅が非常に小さい端末（幅340px以下など）向けの微調整 */
+  @media (max-width: 340px) {
+    .container {
+      padding: 16px;
+    }
+    h1 {
+      font-size: 1.2rem;
+    }
+  }
+</style>
+</head>
+<body>
+  
+  <dir class=""container>
+      <h1>ソウルナンバー診断</h1>
+
+  <div class="form-group">
+    <label for="birthDate">生年月日:</label>
+    <input type="date" id="birthDate">
+    <button id="calcBtn" type="button">計算する</button>
+  </div>
+
+  <!-- 結果表示エリア（初期状態は非表示）-->
+   <div id="result" class="hidden">
+    <h2>結果: <span id="soulNumber">-</span></h2>
+    <p id="soulDescription"></p>
+   </div>
+
+  <!-- JSファイルの読み込み-->
+  <script src="script.js"></script>
+  </dir>
+  
+</body>
+</html>
